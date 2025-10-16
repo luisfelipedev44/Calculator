@@ -1,6 +1,5 @@
 # Calculator
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Calculator é uma aplicação web simples e responsiva, desenvolvida para realizar operações matemáticas básicas como adição, subtração, multiplicação e divisão. Ideal para praticar estruturação com HTML, CSS e JavaScript.
 
@@ -28,9 +27,8 @@ Calculator é uma aplicação web simples e responsiva, desenvolvida para realiz
 ## 📦 Como Executar o Projeto
 
 ### ✅ Pré-requisitos
-
-- Navegador instalado (Google Chrome, Firefox, etc.)  
-- (Opcional) Editor de código [Visual Studio Code](https://code.visualstudio.com/)  
+  
+- Editor de código [Visual Studio Code](https://code.visualstudio.com/)  
 - (Recomendado) Extensão **Live Server** no VSCode
 
 ---
