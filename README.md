@@ -1,39 +1,45 @@
 # Calculator
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Calculator é uma aplicação web de calculadora com layout interativo e responsivo, ideal para demonstrar funcionalidades de interface, operações aritméticas e reutilização de componentes visuais.
+Calculator é uma aplicação web simples e responsiva, desenvolvida para realizar operações matemáticas básicas como adição, subtração, multiplicação e divisão. Ideal para praticar estruturação com HTML, CSS e JavaScript.
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
 
 - HTML5  
-- CSS3 / Tailwind CSS *(ou biblioteca de estilos utilizada)*  
-- JavaScript / TypeScript  
-- Live Preview *(durante o desenvolvimento)*  
+- CSS3  
+- JavaScript  
+- Live Preview (VSCode) ou navegador web
 
 ---
 
 ## 💻 Funcionalidades
 
-- Operações básicas: adição, subtração, multiplicação e divisão  
-- Layout moderno e responsivo  
-- Botões funcionais com feedback visual  
-- Tela de exibição dinâmica dos cálculos  
-- Interface limpa com foco em usabilidade  
+- Operações básicas: +, −, ×, ÷  
+- Layout limpo, moderno e responsivo  
+- Botões com interações visuais  
+- Exibição do resultado em tempo real  
+- Interface amigável e intuitiva  
 
 ---
 
 ## 📦 Como Executar o Projeto
 
-### Pré-requisitos
+### ✅ Pré-requisitos
 
-- Navegador web moderno (Chrome, Firefox, etc.)  
-- (Opcional) Editor de código com suporte a Live Server (ex: VSCode)
+- Navegador instalado (Google Chrome, Firefox, etc.)  
+- (Opcional) Editor de código [Visual Studio Code](https://code.visualstudio.com/)  
+- (Recomendado) Extensão **Live Server** no VSCode
 
-### Passos
+---
 
-1. Clone o repositório
+### ▶️ Passos para rodar o projeto
+
+#### ✔️ Opção 1: Abrir direto no navegador
+
+1. Baixe ou clone este repositório:
 
 ```bash
 git clone https://github.com/luisfelipedev44/Calculator.git
