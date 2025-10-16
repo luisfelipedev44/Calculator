@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
+  <title>Fundamentos - Rocketseat - ReactJS</title>
+
+  <style>
+    :root {
+      --text: #EBEBEB;
+      --text-secondary: #686B6B;
+      --primary: #462878;
+      --background: #2D2A37;
+      --gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
+      --gradient-hover: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.1));
+      --shadow: 0px 11px 7px rgba(0, 0, 0, 0.01), 0px 7px 7px rgba(0, 0, 0, 0.04), 0px 4px 6px rgba(0, 0, 0, 0.10), 0px 2px 4px rgba(0, 0, 0, 0.26), 0px 0px 2px rgba(0, 0, 0, 0.29), inset 0px 2px 3px rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(189deg, #867ECE 0%, #8E7ECE 100%);
+      color: var(--text);
+      font-family: 'Rubik', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+  
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    @media (min-width: 768px) {
+      .main-container {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 32px;
+      }
+    }
+
+    .custom-button {
+      background: var(--gradient);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      border-radius: 12px;
+      transition: all 0.2s ease-in-out;
+      border: none;
+      width: 64px;
+      height: 64px;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex: 1;
+    }
+
+   
+    .custom-button.expanded {
+      flex: 2;
+      min-width: 0;
+    }
+
+    .button-primary {
+      background: var(--primary) !important;
+    }
+
+    .custom-button:hover {
+      background: var(--gradient-hover);
+    }
+
+   
+    .card {
+      background: var(--background);
+      box-shadow: var(--shadow);
+      border-radius: 16px;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calculator-card {
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .history-card {
+      width: 100%;
+      max-width: 340px;
+      min-height: 450px;
+      justify-content: flex-start;
+    }
+
+    .calculator-display {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 26px;
+      padding: 0 8px;
+    }
+
+    .display-text {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 24px;
+    }
+
+    .result-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .equal-sign {
+      color: var(--text-secondary);
+    }
+
+    
+    .keyboard {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .keyboard-row {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    
+    .operation-history {
+      height: 100%;
+    }
+
+    .operation-history ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .operation-history li {
+      font-size: 1rem;
+      color: var(--text);
+      opacity: 0.9;
+      padding: 8px 0;
+    }
+
+    .history-title {
+      margin-bottom: 24px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const textVariants = {
+      default: 'text-xl',
+      muted: 'text-xl text-[var(--text-secondary)]',
+      heading: 'text-2xl',
+      blast: 'text-3xl'
+    }
+
+    function Text({
+      as = 'span', 
+      variant = 'default', 
+      className = '', 
+      children, 
+      ...props
+    }) {
+      return React.createElement(
+        as,
+        {
+          className: `${textVariants[variant]} ${className}`,
+          ...props,
+        },
+        children
+      )
+    }
+
+    function Button({ 
+      variant = 'default',
+      className, 
+      children,
+      expanded = false,
+      ... props
+    }) {
+      return ( 
+        <Text 
+          as="button" 
+          variant="heading"
+          className={`
+            custom-button
+            ${expanded ? 'expanded' : ''}
+            ${variant === 'primary' ? 'button-primary' : ''}
+            ${className ? className : ''}
+          `}
+          {...props}
+        >
+          { children }
+        </Text>
+      )
+    }
+
+    function Card({ children, className, ...props}) {
+      return (
+        <div className={`card ${className ? className : ''}`} {...props}>
+          {children}
+        </div>
+      )
+    }
+
+    function OperationHistory() {
+      return (
+        <Card className="operation-history history-card">
+          <Text 
+            as="h1"
+            variant="heading"
+            className="history-title"
+          >
+            Histórico de Operações
+          </Text>
+
+          <ul>
+            <Text as="li">1 + 1 = 2</Text>
+            <Text as="li">2 + 3 + 1 = 6</Text>
+            <Text as="li">2 + 3 = 5</Text>
+          </ul>
+        </Card>
+      )
+    }
+    
+
+    function Calculator({ operation = "1 + 1", result = "2"}) {
+      return (
+        <Card className="calculator-card">
+          <div className="calculator-display">
+            <div className="display-text">
+              {operation}
+            </div>
+            <div className="result-container">
+              <Text className="equal-sign">=</Text>  
+              <Text variant="blast">{result}</Text>  
+            </div>
+          </div>
+
+          <div className="keyboard">
+            <div className="keyboard-row">
+              <Button>CE</Button>
+              <Button expanded={true}>C</Button>
+              <Button variant="primary">&divide;</Button>
+            </div>
+            <div className="keyboard-row">
+              <Button>7</Button>
+              <Button>8</Button>
+              <Button>9</Button>
+              <Button variant="primary">&times;</Button>
+            </div>
+            <div className="keyboard-row">
+              <Button>4</Button>
+              <Button>5</Button>
+              <Button>6</Button>
+              <Button variant="primary">&minus;</Button>
+            </div>
+            <div className="keyboard-row">
+              <Button>1</Button>
+              <Button>2</Button>
+              <Button>3</Button>
+              <Button variant="primary">+</Button>
+            </div>
+            <div className="keyboard-row">
+              <Button expanded={true}>0</Button>
+              <Button>,</Button>
+              <Button variant="primary">=</Button>
+            </div>
+          </div>
+        </Card>
+      )
+    }
+
+    function App() {
+      return (
+        <main className="main-container">
+          <Calculator />
+          <OperationHistory />
+        </main>
+      )
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+  </script>
+</body>
+</html>
